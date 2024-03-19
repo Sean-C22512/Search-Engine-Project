@@ -1,5 +1,4 @@
-// https://zenodo.org/records/3360392/files/D184MB.zip?download=1
-// link to download text files
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -7,9 +6,9 @@ public class Main {
 
         TextFileReader textFileReader = new TextFileReader(directoryPath);
 
-        textFileReader.readTextFilesInDirectory();
+        //textFileReader.readTextFilesInDirectory();
 
-
+        SwingUtilities.invokeLater(SearchGui::new);
 
 
     }

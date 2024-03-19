@@ -56,7 +56,7 @@ public class TextFileReader
             System.out.println("File: " + filePath.getFileName());
 
             // Will print out all the content of the files
-            //System.out.println(content);
+            System.out.println(content);
 
 
         }
