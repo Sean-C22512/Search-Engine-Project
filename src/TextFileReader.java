@@ -3,25 +3,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class TextFileReader
-{
+public class TextFileReader {
     private String directoryPath;
 
     // Constructor that takes in the file path as only parameter ("assets")
-    public TextFileReader(String directoryPath)
-    {
+    public TextFileReader(String directoryPath) {
         this.directoryPath = directoryPath;
     }
 
-    public void readTextFilesInDirectory()
-    {
+    public void readTextFilesInDirectory() {
         // Creates a Path object representing the directory specified by directoryPath above
         Path directory = Paths.get(directoryPath);
 
-        if (Files.exists(directory) && Files.isDirectory(directory))
-        {
-            try
-            {
+        if (Files.exists(directory) && Files.isDirectory(directory)) {
+            try {
                 Files.walk(directory)
                         .filter(Files::isRegularFile)
                         .filter(path -> path.toString().endsWith(".txt"))
@@ -29,42 +24,29 @@ public class TextFileReader
                         //it will iterate over the text files in the "assets" folder and calls
                         // the processFile method for each file.
                         .forEach(this::processFile);
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-
-        else
-        {
+        } else {
             System.err.println("Directory does not exist or is not a directory.");
         }
     }
 
-    public void processFile(Path filePath)
-    {
-        try
-        {
+    // Searches for the word 'a' and prints the result
+    private void processFile(Path filePath) {
+        try {
             // Read the content of the file as a string
             String content = Files.readString(filePath);
 
-            String[] lines = content.split("\\r?\\n"); // Split content into lines
+            // Check if the content contains the word using football as example (will change to a user added string later on )
+            if (content.contains("football")) {
+                System.out.println("The word 'football' is in the file: " + filePath.getFileName());
+            }
 
-
-            // Display the file name and its content
-            System.out.println("File: " + filePath.getFileName());
-
-            // Will print out all the content of the files
-            //System.out.println(content);
-
-
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
 }
+
