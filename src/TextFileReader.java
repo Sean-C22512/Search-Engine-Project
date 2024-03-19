@@ -5,10 +5,12 @@ import java.nio.file.Paths;
 
 public class TextFileReader {
     private String directoryPath;
+    private String word;
 
     // Constructor that takes in the file path as only parameter ("assets")
-    public TextFileReader(String directoryPath) {
+    public TextFileReader(String directoryPath, String word) {
         this.directoryPath = directoryPath;
+        this.word = word;
     }
 
     public void readTextFilesInDirectory() {
@@ -39,8 +41,8 @@ public class TextFileReader {
             String content = Files.readString(filePath);
 
             // Check if the content contains the word using football as example (will change to a user added string later on )
-            if (content.contains("football")) {
-                System.out.println("The word 'football' is in the file: " + filePath.getFileName());
+            if (content.contains(word)) {
+                System.out.println("The word " + word + " is in the file: " + filePath.getFileName());
             }
 
         } catch (IOException e) {
