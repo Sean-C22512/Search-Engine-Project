@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//kkk
+//kk
 
 public class SearchGui implements ActionListener {
     private JLabel resultLabel;
