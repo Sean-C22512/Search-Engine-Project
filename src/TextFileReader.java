@@ -40,7 +40,7 @@ public class TextFileReader {
             // Read the content of the file as a string
             String content = Files.readString(filePath);
 
-            // Check if the content contains the word using football as example (will change to a user added string later on )
+
             if (content.contains(word)) {
                 System.out.println("The word " + word + " is in the file: " + filePath.getFileName());
             }
