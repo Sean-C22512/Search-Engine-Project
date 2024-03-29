@@ -1,40 +1,88 @@
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SearchGui implements ActionListener {
-    private JLabel resultLabel;
-    private JTextField input;
+    private JFrame frame;
+
     private String directoryPath = "assets";
     private String word;
 
+    private JPanel upPanel;
+    private JPanel eastPanel;
+    private JPanel midPanel;
+
+    private JLabel SearchLabel;
+    private JLabel TextFileLabel;
+    private JLabel MidTitle;
+    private JLabel ResultsTextField;
+
+    private JTextField SearchText;
+    private JTextField TextFileOption;
+
+    private JButton ok;
+    private JButton cancel;
+    private JButton help;
+
+
     public SearchGui() {
-        JFrame frame = new JFrame("Search Engine");
-        JPanel panel = new JPanel();
-        JButton searchButton = new JButton("Search");
-        input = new JTextField(20);
-        resultLabel = new JLabel();
+        frame = new JFrame("Search Engine");
 
-        searchButton.addActionListener(this);
-        input.addActionListener(this);
+        upPanel = new JPanel();
+        eastPanel = new JPanel();
+        midPanel = new JPanel();
 
-        panel.add(input);
-        panel.add(searchButton);
-        panel.add(resultLabel);
+        SearchLabel = new JLabel("Search:");
+        TextFileLabel = new JLabel("Text Files : ");
+        MidTitle = new JLabel("Results");
 
-        frame.add(panel);
-        frame.setSize(300, 200);
-        frame.setVisible(true);
+        // Text Fields
+        ResultsTextField = new JLabel("No results for now");
+        SearchText = new JTextField();
+        TextFileOption = new JTextField();
+
+        // Buttons
+        ok = new JButton("OK");
+        cancel = new JButton("Reset");
+        help = new JButton("Help");
+        //JButton advanced = new JButton("Advanced...");
+
+        ok.addActionListener(this);
+        SearchText.addActionListener(this);
+
+        upPanel.setLayout(new GridLayout(2,3));
+        upPanel.add(SearchLabel);
+        upPanel.add(TextFileLabel);
+        upPanel.add(SearchText);
+        upPanel.add(TextFileOption);
+
+        eastPanel.setLayout(new GridLayout(2,3));
+        eastPanel.add(ok); eastPanel.add(cancel); eastPanel.add(help); //eastPanel.add(advanced);
+
+        midPanel.setLayout(new BorderLayout(0, 0));
+        midPanel.add(MidTitle);
+        midPanel.add(ResultsTextField);
+        midPanel.setBorder(new TitledBorder(null, "Result", TitledBorder.LEADING,
+                TitledBorder.TOP, Font.getFont("Arial"), Color.BLUE));
+
+        frame.setBounds(100, 100, 450, 350);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(upPanel, BorderLayout.NORTH);
+        frame.getContentPane().add(midPanel, BorderLayout.WEST);
+        frame.getContentPane().add(eastPanel, BorderLayout.EAST);
+        frame.setVisible(true);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("Search")) {
-            resultLabel.setText("Searching...");
+        if (e.getActionCommand().equals("OK")) {
+            ResultsTextField.setText("Searching...");
 
             // Save the entered text into the word variable
-            word = input.getText();
+            word = SearchText.getText();
 
             // Execute the time-consuming task on a separate thread
             new Thread(() -> {
@@ -43,7 +91,7 @@ public class SearchGui implements ActionListener {
 
                 // Update the result label on the EDT
                 SwingUtilities.invokeLater(() -> {
-                    resultLabel.setText("Search complete!");
+                    ResultsTextField.setText("Search complete!");
                 });
             }).start();
         }

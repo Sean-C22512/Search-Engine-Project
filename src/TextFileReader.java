@@ -16,11 +16,11 @@ public class TextFileReader {
         this.word = word;
     }
 
-
     public void readTextFilesInDirectory() {
         // Creates a Path object representing the directory specified by directoryPath above
         Path directory = Paths.get(directoryPath);
 
+        // initializes an ArrayList named wordCounts that is capable of holding objects of type WordCount
         ArrayList<WordCount> wordCounts = new ArrayList<>();
 
         if (Files.exists(directory) && Files.isDirectory(directory)) {
@@ -43,6 +43,8 @@ public class TextFileReader {
                 int count = Math.min(10, wordCounts.size());
                 for (int i = 0; i < count; i++)
                 {
+                    // retrieves the object stored at index i in the wordCounts ArrayList.
+                    // and assigns it to a variable called wordCount. Makes it easier to work with
                     WordCount wordCount = wordCounts.get(i);
                     System.out.println("File: " + wordCount.getFileName() + ", Count: " + wordCount.getCount());
                 }
