@@ -5,10 +5,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SearchGui implements ActionListener {
-    private JFrame frame;
 
+    private static final int MAX_SIZE = 499;
+
+    private JFrame frame;
     private String directoryPath = "assets";
-    private String word;
+    private String SearchedWord;
+    private String FileToSearch;
+    private String FilePath;
+
+    private JComboBox<String> dropdown;
+    private String[] options = new String[MAX_SIZE];
 
     private JPanel upPanel;
     private JPanel eastPanel;
@@ -20,14 +27,16 @@ public class SearchGui implements ActionListener {
     private JLabel ResultsTextField;
 
     private JTextField SearchText;
-    private JTextField TextFileOption;
 
     private JButton ok;
-    private JButton cancel;
+    private JButton reset;
     private JButton help;
 
 
     public SearchGui() {
+
+        populateDropdown();
+
         frame = new JFrame("Search Engine");
 
         upPanel = new JPanel();
@@ -37,29 +46,29 @@ public class SearchGui implements ActionListener {
         SearchLabel = new JLabel("Search:");
         TextFileLabel = new JLabel("Text Files : ");
         MidTitle = new JLabel("Results");
-
-        // Text Fields
         ResultsTextField = new JLabel("No results for now");
+
         SearchText = new JTextField();
-        TextFileOption = new JTextField();
 
         // Buttons
         ok = new JButton("OK");
-        cancel = new JButton("Reset");
+        reset = new JButton("Reset");
         help = new JButton("Help");
         //JButton advanced = new JButton("Advanced...");
 
         ok.addActionListener(this);
         SearchText.addActionListener(this);
+        dropdown.addActionListener(this);
+        reset.addActionListener(this);
 
         upPanel.setLayout(new GridLayout(2,3));
         upPanel.add(SearchLabel);
         upPanel.add(TextFileLabel);
         upPanel.add(SearchText);
-        upPanel.add(TextFileOption);
+        upPanel.add(dropdown);
 
         eastPanel.setLayout(new GridLayout(2,3));
-        eastPanel.add(ok); eastPanel.add(cancel); eastPanel.add(help); //eastPanel.add(advanced);
+        eastPanel.add(ok); eastPanel.add(reset); eastPanel.add(help); //eastPanel.add(advanced);
 
         midPanel.setLayout(new BorderLayout(0, 0));
         midPanel.add(MidTitle);
@@ -74,26 +83,54 @@ public class SearchGui implements ActionListener {
         frame.getContentPane().add(eastPanel, BorderLayout.EAST);
         frame.setVisible(true);
 
+
+    }
+    private void populateDropdown() {
+        // Populate options array with filenames from "2.txt" to "499.txt"
+
+        options[0] = "All";
+        for (int i = 2; i <= MAX_SIZE; i++)
+        {
+            options[i-1] = i + ".txt";
+        }
+
+        dropdown = new JComboBox<>(options);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("OK")) {
+        if (e.getActionCommand().equals("OK"))
+        {
             ResultsTextField.setText("Searching...");
 
             // Save the entered text into the word variable
-            word = SearchText.getText();
+            SearchedWord = SearchText.getText();
+
+            //FileToSearch = (String) dropdown.getSelectedItem();
+            //FilePath = directoryPath + "/" + FileToSearch;
+
+
 
             // Execute the time-consuming task on a separate thread
-            new Thread(() -> {
-                TextFileReader textFileReader = new TextFileReader(directoryPath, word);
+            new Thread(() ->
+            {
+                TextFileReader textFileReader = new TextFileReader(directoryPath, SearchedWord);
                 textFileReader.readTextFilesInDirectory();
 
                 // Update the result label on the EDT
-                SwingUtilities.invokeLater(() -> {
+                SwingUtilities.invokeLater(() ->
+                {
                     ResultsTextField.setText("Search complete!");
                 });
             }).start();
+
+        } // end if .equals("OK"))
+
+        else if (e.getActionCommand().equals("Reset"))
+        {
+            SearchText.setText("");
+            dropdown.setSelectedItem("All");
+
         }
     }
 

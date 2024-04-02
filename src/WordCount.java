@@ -15,3 +15,10 @@ public class WordCount {
         return count;
     }
 }
+
+/* ResultsTextField.setText("Searching...");
+
+            // Save the entered text into the word variable
+            SearchedWord = SearchText.getText();
+            FileToSearch = (String) dropdown.getSelectedItem();
+            FilePath = directoryPath + "/" + FileToSearch;*/
