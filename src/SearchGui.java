@@ -26,7 +26,6 @@ public class SearchGui implements ActionListener {
     private JLabel MidTitle;
     private JTextArea ResultsTextArea;
 
-
     private JTextField SearchText;
 
     private JButton ok;

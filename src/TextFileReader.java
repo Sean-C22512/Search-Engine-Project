@@ -9,9 +9,11 @@ import java.util.Scanner;
 public class TextFileReader {
     private String directoryPath;
     private String word;
-    StringBuilder resultText = new StringBuilder();
+    private StringBuilder resultText = new StringBuilder();
+    private ArrayList<WordCount> wordCounts = new ArrayList<>();
 
     public String getResultText() {
+
         return resultText.toString();
 
     }
@@ -26,8 +28,6 @@ public class TextFileReader {
         // Creates a Path object representing the directory specified by directoryPath above
         Path directory = Paths.get(directoryPath);
 
-        // initializes an ArrayList named wordCounts that is capable of holding objects of type WordCount
-        ArrayList<WordCount> wordCounts = new ArrayList<>();
 
         if (Files.exists(directory) && Files.isDirectory(directory)) {
             try
@@ -37,24 +37,15 @@ public class TextFileReader {
                         .filter(path -> path.toString().endsWith(".txt"))
                         .forEach(path -> {
                             WordCount wordCount = processFile(path);
-                            if (wordCount != null) {
+                            assert wordCount != null;
+
+                            if (wordCount.getCount() != 0) {
                                 wordCounts.add(wordCount);
                             }
                         });
 
-                // Sort the list based on the count in descending order
-                wordCounts.sort(Comparator.comparingInt(WordCount::getCount).reversed());
-
-                // Display the top 10 entries
-                int count = Math.min(10, wordCounts.size());
-                for (int i = 0; i < count; i++)
-                {
-                    // retrieves the object stored at index i in the wordCounts ArrayList.
-                    // and assigns it to a variable called wordCount. Makes it easier to work with
-                    WordCount wordCount = wordCounts.get(i);
-                    resultText.append((i+1)+".) File: ").append(wordCount.getFileName()).append(", Count: ").append(wordCount.getCount()).append("\n");
-
-                }
+                // Hard coded atm (5), will be included in the constructor eventually in this class
+                ResultsDisplay(5);
 
 
             }
@@ -94,11 +85,37 @@ public class TextFileReader {
             return new WordCount(filePath.getFileName().toString(), count);
 
         }
+
         catch (IOException e)
         {
             e.printStackTrace();
             return null;
         }
+    }
+
+    private void ResultsDisplay(int ResultsAmount)
+    {
+        // Sort the list based on the count in descending order
+        wordCounts.sort(Comparator.comparingInt(WordCount::getCount).reversed());
+
+        // Display the top 10 entries
+        int count = Math.min(ResultsAmount, wordCounts.size());
+
+
+        if (wordCounts.isEmpty()) {
+            resultText.append("No results found");
+        } else {
+            for (int i = 0; i < count; i++) {
+                // retrieves the object stored at index i in the wordCounts ArrayList.
+                // and assigns it to a variable called wordCount. Makes it easier to work with
+                WordCount wordCount = wordCounts.get(i);
+                resultText.append((i + 1) + ".) File: ").append(wordCount.getFileName()).append(", Count: ")
+                        .append(wordCount.getCount()).append("\n");
+            }
+        }
+
+
+
     }
 
 }
