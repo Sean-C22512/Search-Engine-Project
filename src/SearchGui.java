@@ -11,8 +11,8 @@ public class SearchGui implements ActionListener {
     private JFrame frame;
     private String directoryPath = "assets";
     private String SearchedWord;
-    private String FileToSearch;
-    private String FilePath;
+    //private String FileToSearch;
+    //private String FilePath;
 
     private JComboBox<String> dropdown;
     private String[] options = new String[MAX_SIZE];
@@ -24,7 +24,8 @@ public class SearchGui implements ActionListener {
     private JLabel SearchLabel;
     private JLabel TextFileLabel;
     private JLabel MidTitle;
-    private JLabel ResultsTextField;
+    private JTextArea ResultsTextArea;
+
 
     private JTextField SearchText;
 
@@ -46,7 +47,7 @@ public class SearchGui implements ActionListener {
         SearchLabel = new JLabel("Search:");
         TextFileLabel = new JLabel("Text Files : ");
         MidTitle = new JLabel("Results");
-        ResultsTextField = new JLabel("No results for now");
+        ResultsTextArea = new JTextArea("No results for now");
 
         SearchText = new JTextField();
 
@@ -72,7 +73,7 @@ public class SearchGui implements ActionListener {
 
         midPanel.setLayout(new BorderLayout(0, 0));
         midPanel.add(MidTitle);
-        midPanel.add(ResultsTextField);
+        midPanel.add(ResultsTextArea);
         midPanel.setBorder(new TitledBorder(null, "Result", TitledBorder.LEADING,
                 TitledBorder.TOP, Font.getFont("Arial"), Color.BLUE));
 
@@ -97,11 +98,18 @@ public class SearchGui implements ActionListener {
         dropdown = new JComboBox<>(options);
     }
 
+    private void ResetGui()
+    {
+        SearchText.setText("");
+        dropdown.setSelectedItem("All");
+        ResultsTextArea.setText("No results for now");
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("OK"))
         {
-            ResultsTextField.setText("Searching...");
+            ResultsTextArea.setText("Searching...");
 
             // Save the entered text into the word variable
             SearchedWord = SearchText.getText();
@@ -120,7 +128,7 @@ public class SearchGui implements ActionListener {
                 // Update the result label on the EDT
                 SwingUtilities.invokeLater(() ->
                 {
-                    ResultsTextField.setText("Search complete!");
+                    ResultsTextArea.setText(textFileReader.getResultText());
                 });
             }).start();
 
@@ -128,8 +136,7 @@ public class SearchGui implements ActionListener {
 
         else if (e.getActionCommand().equals("Reset"))
         {
-            SearchText.setText("");
-            dropdown.setSelectedItem("All");
+            ResetGui();
 
         }
     }

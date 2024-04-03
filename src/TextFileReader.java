@@ -9,6 +9,12 @@ import java.util.Scanner;
 public class TextFileReader {
     private String directoryPath;
     private String word;
+    StringBuilder resultText = new StringBuilder();
+
+    public String getResultText() {
+        return resultText.toString();
+
+    }
 
     // Constructor that takes in the file path as only parameter ("assets")
     public TextFileReader(String directoryPath, String word) {
@@ -46,8 +52,10 @@ public class TextFileReader {
                     // retrieves the object stored at index i in the wordCounts ArrayList.
                     // and assigns it to a variable called wordCount. Makes it easier to work with
                     WordCount wordCount = wordCounts.get(i);
-                    System.out.println("File: " + wordCount.getFileName() + ", Count: " + wordCount.getCount());
+                    resultText.append((i+1)+".) File: ").append(wordCount.getFileName()).append(", Count: ").append(wordCount.getCount()).append("\n");
+
                 }
+
 
             }
             catch (IOException e) {
