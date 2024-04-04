@@ -13,9 +13,7 @@ public class TextFileReader {
     private ArrayList<WordCount> wordCounts = new ArrayList<>();
 
     public String getResultText() {
-
         return resultText.toString();
-
     }
 
     // Constructor that takes in the file path as only parameter ("assets")
@@ -72,11 +70,9 @@ public class TextFileReader {
             // Loop through each token in the content
             while (scanner.hasNext())
             {
-                // Check if the token matches the specified word
-                if (scanner.next().equals(word)) {
-                    // Increment the count if the word is found
-                    count++;
-                }
+                String token = scanner.next();
+                token = token.replaceAll("[^a-zA-Z]", ""); // Only keeps letters
+                if (token.equals(word)) {count++;}
             }
 
             // Close the Scanner
@@ -98,14 +94,15 @@ public class TextFileReader {
         // Sort the list based on the count in descending order
         wordCounts.sort(Comparator.comparingInt(WordCount::getCount).reversed());
 
-        // Display the top 10 entries
+        // Display the top x (ResultsAmount) entries
         int count = Math.min(ResultsAmount, wordCounts.size());
 
 
         if (wordCounts.isEmpty()) {
             resultText.append("No results found");
         } else {
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++)
+            {
                 // retrieves the object stored at index i in the wordCounts ArrayList.
                 // and assigns it to a variable called wordCount. Makes it easier to work with
                 WordCount wordCount = wordCounts.get(i);

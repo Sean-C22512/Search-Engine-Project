@@ -31,6 +31,7 @@ public class SearchGui implements ActionListener {
     private JButton ok;
     private JButton reset;
     private JButton help;
+    private JButton filter;
 
 
     public SearchGui() {
@@ -54,12 +55,13 @@ public class SearchGui implements ActionListener {
         ok = new JButton("OK");
         reset = new JButton("Reset");
         help = new JButton("Help");
-        //JButton advanced = new JButton("Advanced...");
+        filter = new JButton("Filter");
 
         ok.addActionListener(this);
         SearchText.addActionListener(this);
         dropdown.addActionListener(this);
         reset.addActionListener(this);
+        filter.addActionListener(this);
 
         upPanel.setLayout(new GridLayout(2,3));
         upPanel.add(SearchLabel);
@@ -68,7 +70,7 @@ public class SearchGui implements ActionListener {
         upPanel.add(dropdown);
 
         eastPanel.setLayout(new GridLayout(2,3));
-        eastPanel.add(ok); eastPanel.add(reset); eastPanel.add(help); //eastPanel.add(advanced);
+        eastPanel.add(ok); eastPanel.add(reset); eastPanel.add(help); eastPanel.add(filter);
 
         midPanel.setLayout(new BorderLayout(0, 0));
         midPanel.add(MidTitle);
@@ -85,6 +87,44 @@ public class SearchGui implements ActionListener {
 
 
     }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        switch (e.getActionCommand()) {
+            case "OK":
+                ResultsTextArea.setText("Searching...");
+
+                // Save the entered text into the word variable
+                SearchedWord = SearchText.getText();
+
+                // Execute the time-consuming task on a separate thread
+                new Thread(() -> {
+                    TextFileReader textFileReader = new TextFileReader(directoryPath, SearchedWord);
+                    textFileReader.readTextFilesInDirectory();
+
+                    // Update the result label on the EDT
+                    SwingUtilities.invokeLater(() -> {
+                        ResultsTextArea.setText(textFileReader.getResultText());
+                    });
+                }).start();
+                break;
+
+            case "Reset":
+                ResetGui();
+                break;
+
+            case "Filter":
+                FilterGui Filter = new FilterGui();
+                break;
+
+            default:
+                // Handle other cases if needed
+                break;
+        }
+
+    }
+
     private void populateDropdown() {
         // Populate options array with filenames from "2.txt" to "499.txt"
 
@@ -102,42 +142,10 @@ public class SearchGui implements ActionListener {
         SearchText.setText("");
         dropdown.setSelectedItem("All");
         ResultsTextArea.setText("No results for now");
-    }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("OK"))
-        {
-            ResultsTextArea.setText("Searching...");
-
-            // Save the entered text into the word variable
-            SearchedWord = SearchText.getText();
-
-            //FileToSearch = (String) dropdown.getSelectedItem();
-            //FilePath = directoryPath + "/" + FileToSearch;
-
-
-
-            // Execute the time-consuming task on a separate thread
-            new Thread(() ->
-            {
-                TextFileReader textFileReader = new TextFileReader(directoryPath, SearchedWord);
-                textFileReader.readTextFilesInDirectory();
-
-                // Update the result label on the EDT
-                SwingUtilities.invokeLater(() ->
-                {
-                    ResultsTextArea.setText(textFileReader.getResultText());
-                });
-            }).start();
-
-        } // end if .equals("OK"))
-
-        else if (e.getActionCommand().equals("Reset"))
-        {
-            ResetGui();
-
-        }
     }
 
 }
+
+
+

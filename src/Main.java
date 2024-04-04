@@ -8,6 +8,5 @@ public class Main {
 
         SwingUtilities.invokeLater(SearchGui::new);
 
-
     }
 }
