@@ -3,7 +3,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+//s
 public class SearchGui implements ActionListener {
 
     private static final int MAX_SIZE = 499;
