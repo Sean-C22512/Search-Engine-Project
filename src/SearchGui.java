@@ -56,7 +56,7 @@ public class SearchGui implements ActionListener {
         reset = new JButton("Reset");
         help = new JButton("Help");
         filter = new JButton("Filter");
-        info = new JButton("Info"); // Added the "Info" button
+        info = new JButton("Info");
 
         // Add action listeners to buttons and text field
         ok.addActionListener(this);
@@ -64,21 +64,21 @@ public class SearchGui implements ActionListener {
         dropdown.addActionListener(this);
         reset.addActionListener(this);
         filter.addActionListener(this);
-        info.addActionListener(this); // Add ActionListener to the "Info" button
+        info.addActionListener(this);
 
         // Configure panels with layout and add components
-        upPanel.setLayout(new GridLayout(2, 2)); // Adjusted to 2 columns
+        upPanel.setLayout(new GridLayout(2, 2));
         upPanel.add(SearchLabel);
         upPanel.add(SearchText);
         upPanel.add(TextFileLabel);
         upPanel.add(dropdown);
 
-        eastPanel.setLayout(new GridLayout(5, 1)); // Changed to 5 rows (buttons) vertically
+        eastPanel.setLayout(new GridLayout(5, 1));
         eastPanel.add(ok);
         eastPanel.add(reset);
         eastPanel.add(help);
         eastPanel.add(filter);
-        eastPanel.add(info); // Added the "Info" button
+        eastPanel.add(info);
 
         midPanel.setLayout(new BorderLayout(0, 0));
         midPanel.add(MidTitle, BorderLayout.NORTH);
@@ -110,7 +110,6 @@ public class SearchGui implements ActionListener {
                     TextFileReader textFileReader = new TextFileReader(directoryPath, SearchedWord);
                     textFileReader.readTextFilesInDirectory();
 
-                    // Update GUI with search results
                     SwingUtilities.invokeLater(() -> {
                         ResultsTextArea.setText(textFileReader.getResultText());
                     });
