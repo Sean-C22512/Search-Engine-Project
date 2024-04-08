@@ -127,7 +127,7 @@ public class SearchGui implements ActionListener {
 
             case "Info":
                 // Display info message when "Info" button is clicked
-                JOptionPane.showMessageDialog(frame, "This is the Info button.");
+                JOptionPane.showMessageDialog(frame, "This program searches for words and phrases in stored text files.\n Enter the choosen word/phrase into the search bar and press ok \nto run the program");
                 break;
 
             default:
