@@ -30,7 +30,7 @@ public class SearchGui implements ActionListener {
     private JButton reset;
     private JButton help;
     private JButton filter;
-    private JButton info;
+    private JButton about;
 
     /**
      * Constructor to initialize the GUI components.
@@ -56,7 +56,7 @@ public class SearchGui implements ActionListener {
         reset = new JButton("Reset");
         help = new JButton("Help");
         filter = new JButton("Filter");
-        info = new JButton("Info");
+        about = new JButton("About");
 
         // Add action listeners to buttons and text field
         ok.addActionListener(this);
@@ -64,7 +64,7 @@ public class SearchGui implements ActionListener {
         dropdown.addActionListener(this);
         reset.addActionListener(this);
         filter.addActionListener(this);
-        info.addActionListener(this);
+        about.addActionListener(this);
 
         // Configure panels with layout and add components
         upPanel.setLayout(new GridLayout(2, 2));
@@ -78,7 +78,7 @@ public class SearchGui implements ActionListener {
         eastPanel.add(reset);
         eastPanel.add(help);
         eastPanel.add(filter);
-        eastPanel.add(info);
+        eastPanel.add(about);
 
         midPanel.setLayout(new BorderLayout(0, 0));
         midPanel.add(MidTitle, BorderLayout.NORTH);
@@ -124,8 +124,8 @@ public class SearchGui implements ActionListener {
                 FilterGui filterGui = new FilterGui();
                 break;
 
-            case "Info":
-                // Display info message when "Info" button is clicked
+            case "About":
+                // Display about message when "about" button is clicked
                 JOptionPane.showMessageDialog(frame, "This program searches for words and phrases in stored text files.\n Enter the choosen word/phrase into the search bar and press ok \nto run the program");
                 break;
 
