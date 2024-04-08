@@ -58,6 +58,13 @@ public class SearchGui implements ActionListener {
         filter = new JButton("Filter");
         about = new JButton("About");
 
+        // Set button colors
+        setButtonColor(ok, Color.GREEN);
+        setButtonColor(reset, Color.RED);
+        setButtonColor(help, Color.white);
+        setButtonColor(filter, Color.white);
+        setButtonColor(about, Color.white);
+
         // Add action listeners to buttons and text field
         ok.addActionListener(this);
         SearchText.addActionListener(this);
@@ -65,6 +72,7 @@ public class SearchGui implements ActionListener {
         reset.addActionListener(this);
         filter.addActionListener(this);
         about.addActionListener(this);
+        help.addActionListener(this);
 
         // Configure panels with layout and add components
         upPanel.setLayout(new GridLayout(2, 2));
@@ -80,11 +88,12 @@ public class SearchGui implements ActionListener {
         eastPanel.add(filter);
         eastPanel.add(about);
 
+
         midPanel.setLayout(new BorderLayout(0, 0));
         midPanel.add(MidTitle, BorderLayout.NORTH);
         midPanel.add(new JScrollPane(ResultsTextArea), BorderLayout.CENTER);
         midPanel.setBorder(new TitledBorder(null, "Result", TitledBorder.LEADING,
-                TitledBorder.TOP, Font.getFont("Arial"), Color.BLUE));
+        TitledBorder.TOP, Font.getFont("Arial"), Color.BLUE));
 
         // Configure main frame and add panels
         frame.setBounds(100, 100, 450, 350);
@@ -93,6 +102,13 @@ public class SearchGui implements ActionListener {
         frame.getContentPane().add(midPanel, BorderLayout.CENTER);
         frame.getContentPane().add(eastPanel, BorderLayout.EAST);
         frame.setVisible(true);
+
+    }
+
+    //helper method to set the background colour of the buttons.
+    private void setButtonColor(JButton button, Color color) {
+        button.setBackground(color);
+        button.setOpaque(true);
     }
 
     /**
@@ -127,6 +143,10 @@ public class SearchGui implements ActionListener {
             case "About":
                 // Display about message when "about" button is clicked
                 JOptionPane.showMessageDialog(frame, "This program searches for words and phrases in stored text files.\n Enter the choosen word/phrase into the search bar and press ok \nto run the program");
+                break;
+
+            case "Help":
+            JOptionPane.showMessageDialog(frame, "no resules found = there are no apperances of the searched word within the text files");
                 break;
 
             default:
