@@ -6,7 +6,6 @@ public class Main {
 
         //textFileReader.readTextFilesInDirectory();
 
-        textFileReader.readTextFilesInDirectory();
 
         SwingUtilities.invokeLater(SearchGui::new);
 
