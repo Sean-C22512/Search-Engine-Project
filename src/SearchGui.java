@@ -3,7 +3,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//s
+
 public class SearchGui implements ActionListener {
 
     private static final int MAX_SIZE = 499;
@@ -31,6 +31,9 @@ public class SearchGui implements ActionListener {
     private JButton help;
     private JButton filter;
     private JButton about;
+    private JButton darkModeToggle; // New button for dark mode
+
+    private boolean darkMode = false;
 
     /**
      * Constructor to initialize the GUI components.
@@ -57,13 +60,7 @@ public class SearchGui implements ActionListener {
         help = new JButton("Help");
         filter = new JButton("Filter");
         about = new JButton("About");
-
-        // Set button colors
-        setButtonColor(ok, Color.GREEN);
-        setButtonColor(reset, Color.RED);
-        setButtonColor(help, Color.white);
-        setButtonColor(filter, Color.white);
-        setButtonColor(about, Color.white);
+        darkModeToggle = new JButton("Dark Mode"); // Initialize dark mode button
 
         // Add action listeners to buttons and text field
         ok.addActionListener(this);
@@ -73,6 +70,15 @@ public class SearchGui implements ActionListener {
         filter.addActionListener(this);
         about.addActionListener(this);
         help.addActionListener(this);
+        darkModeToggle.addActionListener(this); // Add action listener for dark mode button
+
+        // Set button colors
+        setButtonColor(ok, Color.GREEN);
+        setButtonColor(reset, Color.RED);
+        setButtonColor(help, Color.WHITE);
+        setButtonColor(filter, Color.WHITE);
+        setButtonColor(about, Color.WHITE);
+        setButtonColor(darkModeToggle, Color.GRAY); // Custom color for dark mode button
 
         // Configure panels with layout and add components
         upPanel.setLayout(new GridLayout(2, 2));
@@ -81,20 +87,17 @@ public class SearchGui implements ActionListener {
         upPanel.add(TextFileLabel);
         upPanel.add(dropdown);
 
-        eastPanel.setLayout(new GridLayout(5, 1));
+        eastPanel.setLayout(new GridLayout(6, 1)); // Increased grid size for accommodating dark mode button
         eastPanel.add(ok);
         eastPanel.add(reset);
         eastPanel.add(help);
         eastPanel.add(filter);
         eastPanel.add(about);
-
+        eastPanel.add(darkModeToggle); // Add dark mode button
 
         midPanel.setLayout(new BorderLayout(0, 0));
         midPanel.add(MidTitle, BorderLayout.NORTH);
         midPanel.add(new JScrollPane(ResultsTextArea), BorderLayout.CENTER);
-        midPanel.setBorder(new TitledBorder(null, "Result", TitledBorder.LEADING,
-        TitledBorder.TOP, Font.getFont("Arial"), Color.BLUE));
-
         // Configure main frame and add panels
         frame.setBounds(100, 100, 450, 350);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,13 +105,6 @@ public class SearchGui implements ActionListener {
         frame.getContentPane().add(midPanel, BorderLayout.CENTER);
         frame.getContentPane().add(eastPanel, BorderLayout.EAST);
         frame.setVisible(true);
-
-    }
-
-    //helper method to set the background colour of the buttons.
-    private void setButtonColor(JButton button, Color color) {
-        button.setBackground(color);
-        button.setOpaque(true);
     }
 
     /**
@@ -146,13 +142,61 @@ public class SearchGui implements ActionListener {
                 break;
 
             case "Help":
-            JOptionPane.showMessageDialog(frame, "no resules found = there are no apperances of the searched word within the text files");
+                JOptionPane.showMessageDialog(frame, "no resules found = there are no appearances of the searched word within the text files");
+                break;
+
+            case "Dark Mode": // Toggle dark mode
+                toggleDarkMode();
                 break;
 
             default:
                 // Handle other cases if needed
                 break;
         }
+    }
+
+    /**
+     * Method to toggle dark mode.
+     */
+    private void toggleDarkMode() {
+        darkMode = !darkMode;
+        if (darkMode) {
+            // Set dark mode colors
+            frame.getContentPane().setBackground(Color.DARK_GRAY);
+            upPanel.setBackground(Color.DARK_GRAY);
+            eastPanel.setBackground(Color.DARK_GRAY);
+            midPanel.setBackground(Color.DARK_GRAY);
+            SearchLabel.setForeground(Color.WHITE);
+            TextFileLabel.setForeground(Color.WHITE);
+            MidTitle.setForeground(Color.WHITE);
+            ResultsTextArea.setForeground(Color.WHITE);
+            ResultsTextArea.setBackground(Color.DARK_GRAY);
+
+            // Set custom dark mode button color
+            darkModeToggle.setBackground(Color.LIGHT_GRAY);
+        } else {
+            // Set light mode colors
+            frame.getContentPane().setBackground(null);
+            upPanel.setBackground(null);
+            eastPanel.setBackground(null);
+            midPanel.setBackground(null);
+            SearchLabel.setForeground(null);
+            TextFileLabel.setForeground(null);
+            MidTitle.setForeground(null);
+            ResultsTextArea.setForeground(null);
+            ResultsTextArea.setBackground(null);
+
+            // Reset dark mode button color
+            darkModeToggle.setBackground(Color.GRAY);
+        }
+    }
+
+    /**
+     * Method to set the background color of the buttons.
+     */
+    private void setButtonColor(JButton button, Color color) {
+        button.setBackground(color);
+        button.setOpaque(true);
     }
 
     /**
