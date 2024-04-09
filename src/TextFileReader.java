@@ -16,13 +16,13 @@ public class TextFileReader {
         return resultText.toString();
     }
 
-    // Constructor that takes in the file path as only parameter ("assets")
+
     public TextFileReader(String directoryPath, String word) {
         this.directoryPath = directoryPath;
         this.word = word;
     }
 
-    public void readTextFilesInDirectory() {
+    public void readAll_TextFiles() {
         // Creates a Path object representing the directory specified by directoryPath above
         Path directory = Paths.get(directoryPath);
 

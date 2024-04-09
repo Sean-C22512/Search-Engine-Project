@@ -9,8 +9,10 @@ public class SearchGui implements ActionListener {
     private static final int MAX_SIZE = 499;
 
     private JFrame frame;
-    private String directoryPath = "assets";
+    //private String directoryPath = "assets";
     private String SearchedWord;
+
+    private String selectedItem;
 
     private JComboBox<String> dropdown;
     private String[] options = new String[MAX_SIZE];
@@ -116,11 +118,15 @@ public class SearchGui implements ActionListener {
             case "OK":
                 ResultsTextArea.setText("Searching...");
                 SearchedWord = SearchText.getText();
+                selectedItem = (String) dropdown.getSelectedItem();
+
+
 
                 // Execute search operation on a separate thread
                 new Thread(() -> {
-                    TextFileReader textFileReader = new TextFileReader(directoryPath, SearchedWord);
-                    textFileReader.readTextFilesInDirectory();
+
+                    TextFileReader textFileReader = new TextFileReader(selectedItem, SearchedWord);
+                    textFileReader.readAll_TextFiles();
 
                     SwingUtilities.invokeLater(() -> {
                         ResultsTextArea.setText(textFileReader.getResultText());
