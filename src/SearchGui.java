@@ -3,19 +3,18 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
+
 
 public class SearchGui implements ActionListener {
 
-    private static final int MAX_SIZE = 499;
 
     private JFrame frame;
-    //private String directoryPath = "assets";
     private String SearchedWord;
-
     private String selectedItem;
 
     private JComboBox<String> dropdown;
-    private String[] options = new String[MAX_SIZE];
+    private String[] options = new String[Constants.MAX_SIZE];
 
     private JPanel upPanel;
     private JPanel eastPanel;
@@ -121,12 +120,22 @@ public class SearchGui implements ActionListener {
                 selectedItem = (String) dropdown.getSelectedItem();
 
 
-
                 // Execute search operation on a separate thread
                 new Thread(() -> {
 
                     TextFileReader textFileReader = new TextFileReader(selectedItem, SearchedWord);
-                    textFileReader.readAll_TextFiles();
+
+                    if(Objects.equals(selectedItem, Constants.DIRECTORY_PATH))
+                    {
+                        textFileReader.readAll_TextFiles();
+
+                    }
+
+                    else{
+                        textFileReader.amendFilePath();
+                        textFileReader.read_TextFile();
+                    }
+
 
                     SwingUtilities.invokeLater(() -> {
                         ResultsTextArea.setText(textFileReader.getResultText());
@@ -210,7 +219,7 @@ public class SearchGui implements ActionListener {
      */
     private void populateDropdown() {
         options[0] = "All";
-        for (int i = 2; i <= MAX_SIZE; i++) {
+        for (int i = 2; i <= Constants.MAX_SIZE; i++) {
             options[i - 1] = i + ".txt";
         }
         dropdown = new JComboBox<>(options);
@@ -228,7 +237,5 @@ public class SearchGui implements ActionListener {
     /**
      * Main method to instantiate and display the GUI.
      */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new SearchGui());
-    }
+
 }

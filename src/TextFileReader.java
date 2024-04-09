@@ -6,26 +6,35 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
 
-public class TextFileReader {
-    private String directoryPath;
+public class TextFileReader
+{
+
+
+    private String filePath;
+    private String textFilePath = "";
     private String word;
     private StringBuilder resultText = new StringBuilder();
     private ArrayList<WordCount> wordCounts = new ArrayList<>();
+
+
+
+    public TextFileReader(String filePath, String word) {
+        this.filePath = filePath;
+        this.word = word;
+    }
+
+    public void amendFilePath() {
+        textFilePath += Constants.DIRECTORY_PATH + "/" + filePath ; // Appending the new string to the existing filePath
+
+    }
 
     public String getResultText() {
         return resultText.toString();
     }
 
-
-    public TextFileReader(String directoryPath, String word) {
-        this.directoryPath = directoryPath;
-        this.word = word;
-    }
-
     public void readAll_TextFiles() {
         // Creates a Path object representing the directory specified by directoryPath above
-        Path directory = Paths.get(directoryPath);
-
+        Path directory = Paths.get(filePath);
 
         if (Files.exists(directory) && Files.isDirectory(directory)) {
             try
@@ -54,6 +63,26 @@ public class TextFileReader {
             System.err.println("Directory does not exist or is not a directory.");
         }
     }
+
+    public void read_TextFile() {
+        Path file = Paths.get(textFilePath);
+
+        if (Files.exists(file) && Files.isRegularFile(file) && file.toString().endsWith(".txt")) {
+            WordCount wordCount = processFile(file);
+            assert wordCount != null;
+
+            if (wordCount.getCount() != 0) {
+                wordCounts.add(wordCount);
+            }
+
+            // Hard coded atm (5), will be included in the constructor eventually in this class
+            ResultsDisplay(5);
+        } else {
+            System.err.println("File does not exist or is not a valid text file.");
+        }
+    }
+
+
 
 
     private WordCount processFile(Path filePath)
