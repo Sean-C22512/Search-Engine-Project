@@ -8,14 +8,11 @@ import java.util.Scanner;
 
 public class TextFileReader
 {
-
-
     private String filePath;
     private String textFilePath = "";
     private String word;
     private StringBuilder resultText = new StringBuilder();
     private ArrayList<WordCount> wordCounts = new ArrayList<>();
-
 
 
     public TextFileReader(String filePath, String word) {

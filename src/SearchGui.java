@@ -82,13 +82,13 @@ public class SearchGui implements ActionListener {
         setButtonColor(darkModeToggle, Color.GRAY); // Custom color for dark mode button
 
         // Configure panels with layout and add components
-        upPanel.setLayout(new GridLayout(2, 2));
+        upPanel.setLayout(new GridLayout(Constants.UP_ROW, Constants.UP_COL));
         upPanel.add(SearchLabel);
         upPanel.add(SearchText);
         upPanel.add(TextFileLabel);
         upPanel.add(dropdown);
 
-        eastPanel.setLayout(new GridLayout(6, 1)); // Increased grid size for accommodating dark mode button
+        eastPanel.setLayout(new GridLayout(Constants.EAST_ROW, Constants.EAST_COL)); // Increased grid size for accommodating dark mode button
         eastPanel.add(ok);
         eastPanel.add(reset);
         eastPanel.add(help);
@@ -96,11 +96,11 @@ public class SearchGui implements ActionListener {
         eastPanel.add(about);
         eastPanel.add(darkModeToggle); // Add dark mode button
 
-        midPanel.setLayout(new BorderLayout(0, 0));
+        midPanel.setLayout(new BorderLayout(Constants.MID_H_GAP,Constants.MID_V_GAP));
         midPanel.add(MidTitle, BorderLayout.NORTH);
         midPanel.add(new JScrollPane(ResultsTextArea), BorderLayout.CENTER);
         // Configure main frame and add panels
-        frame.setBounds(100, 100, 450, 350);
+        frame.setBounds(Constants.FRAME_X, Constants.FRAME_Y, Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(upPanel, BorderLayout.NORTH);
         frame.getContentPane().add(midPanel, BorderLayout.CENTER);
@@ -218,7 +218,7 @@ public class SearchGui implements ActionListener {
      * Method to populate the dropdown with file options.
      */
     private void populateDropdown() {
-        options[0] = "All";
+        options[0] = Constants.DIRECTORY_PATH;
         for (int i = 2; i <= Constants.MAX_SIZE; i++) {
             options[i - 1] = i + ".txt";
         }
@@ -230,7 +230,7 @@ public class SearchGui implements ActionListener {
      */
     private void resetGui() {
         SearchText.setText("");
-        dropdown.setSelectedItem("All");
+        dropdown.setSelectedItem(Constants.DIRECTORY_PATH);
         ResultsTextArea.setText("No results for now");
     }
 
