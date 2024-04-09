@@ -64,6 +64,7 @@ public class TextFileReader
         }
     }
 
+    // Reads just a single text file
     public void read_TextFile() {
         Path file = Paths.get(textFilePath);
 
