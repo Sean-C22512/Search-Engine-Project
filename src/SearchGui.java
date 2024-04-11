@@ -1,33 +1,11 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.util.List;
 import java.util.Objects;
-
-import javax.swing.AbstractAction;
-import javax.swing.ActionMap;
-import javax.swing.InputMap;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 
 public class SearchGui implements ActionListener {
 
@@ -56,11 +34,6 @@ public class SearchGui implements ActionListener {
     private JButton filter;
     private JButton about;
     private JButton darkModeToggle;
-    
-    private JCheckBox caseSensitiveCheckbox; //Search box 
-    private JCheckBox wholeWordCheckbox;
-    private JCheckBox wildcardCheckbox;
-    private JComboBox<String> booleanOperatorComboBox;
 
     private boolean darkMode = false;
 
@@ -112,22 +85,6 @@ public class SearchGui implements ActionListener {
         filter = new JButton("Filter");
         about = new JButton("About");
         darkModeToggle = new JButton("Dark Mode");
-        
-        JPanel searchOptionsPanel = new JPanel(new GridLayout(4, 2));
-        searchOptionsPanel.setBorder(new TitledBorder("Search Options"));
-
-        caseSensitiveCheckbox = new JCheckBox("Case Sensitive");
-        wholeWordCheckbox = new JCheckBox("Whole Word");
-        wildcardCheckbox = new JCheckBox("Wildcard");
-        String[] booleanOperators = {"AND", "OR", "NOT"};
-        booleanOperatorComboBox = new JComboBox<>(booleanOperators);
-
-        searchOptionsPanel.add(caseSensitiveCheckbox);
-        searchOptionsPanel.add(wholeWordCheckbox);
-        searchOptionsPanel.add(wildcardCheckbox);
-        searchOptionsPanel.add(booleanOperatorComboBox);
-
-        upPanel.add(searchOptionsPanel);
 
         ok.addActionListener(this);
         reset.addActionListener(this);
@@ -158,26 +115,26 @@ public class SearchGui implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
-        case "OK":
-            resultsTextArea.setText("Searching...");
-            searchedWord = searchText.getText();
-            selectedItem = (String) dropdown.getSelectedItem();
+            case "OK":
+                resultsTextArea.setText("Searching...");
+                searchedWord = searchText.getText();
+                selectedItem = (String) dropdown.getSelectedItem();
 
-            new Thread(() -> {
-                TextFileReader textFileReader = new TextFileReader(selectedItem, searchedWord);
+                new Thread(() -> {
+                    TextFileReader textFileReader = new TextFileReader(selectedItem, searchedWord);
 
-                if (Objects.equals(selectedItem, Constants.DIRECTORY_PATH)) {
-                    textFileReader.readAll_TextFiles();
-                } else {
-                    textFileReader.amendFilePath();
-                    textFileReader.read_TextFile();
-                }
+                    if (Objects.equals(selectedItem, Constants.DIRECTORY_PATH)) {
+                        textFileReader.readAll_TextFiles();
+                    } else {
+                        textFileReader.amendFilePath();
+                        textFileReader.read_TextFile();
+                    }
 
-                SwingUtilities.invokeLater(() -> {
-                    resultsTextArea.setText(textFileReader.getResultText());
-                });
-            }).start();
-            break;
+                    SwingUtilities.invokeLater(() -> {
+                        resultsTextArea.setText(textFileReader.getResultText());
+                    });
+                }).start();
+                break;
 
             case "Reset":
                 resetGui();
@@ -204,17 +161,7 @@ public class SearchGui implements ActionListener {
         }
     }
 
-	private void displaySearchResults(List<File> searchResults) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private List<File> search(String selectedItem2, String searchedWord2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	private void toggleDarkMode() {
+    private void toggleDarkMode() {
         darkMode = !darkMode;
         Color background = darkMode ? Color.DARK_GRAY : null;
         Color foreground = darkMode ? Color.WHITE : null;
