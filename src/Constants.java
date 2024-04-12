@@ -1,5 +1,6 @@
 public class Constants {
-    // Directory Paths
+
+    // Directory Path
     public static final String DIRECTORY_PATH = "All"; // Default directory path for file operations
     
     // Size and Dimension Constants
@@ -23,12 +24,10 @@ public class Constants {
 
     public static final int RESULT_AREA_ROW = 20;
 
-    // Filter Gui
+    // Filter GUI components
     public static final int FILTER_X = 50;
     public static final int FILTER_Y = 50;
     public static final int FILTER_WIDTH = 400;
     public static final int FILTER_HEIGHT = 400;
-
-
 
 }

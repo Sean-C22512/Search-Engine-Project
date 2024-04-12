@@ -8,7 +8,7 @@ import java.util.Objects;
 
 // This class provides a graphical user interface to search for text within files.
 public class SearchGui implements ActionListener {
-    //Swing Components
+    // Swing Components
 
     // Strings for storing searched word and selected item
     private JFrame frame;
@@ -214,7 +214,6 @@ public class SearchGui implements ActionListener {
                 JOptionPane.showMessageDialog(frame, "No results found: There are no appearances of the" +
                         " searched word within the text files.\n\nShortcuts:\n- Ctrl + R: Reset\n- Ctrl + D: " +
                         "Dark Mode Toggle\n- Ctrl + H: Help\n- Ctrl + F: Filter\n- Ctrl + A: About");
-
                 break;
 
             case "Dark Mode":
@@ -226,22 +225,30 @@ public class SearchGui implements ActionListener {
                 break;
         }
     }
-    //Toggles the UI between dark and light mode.
+    // Toggles the UI between dark and light mode.
     private void toggleDarkMode() {
+        // Toggle dark mode
         darkMode = !darkMode;
+
+        // Set background and foreground colors based on dark mode status
         Color background = darkMode ? Color.DARK_GRAY : null;
         Color foreground = darkMode ? Color.WHITE : null;
 
+        // Set background colors for various panels and components
         frame.getContentPane().setBackground(background);
         contentPanel.setBackground(background);
         upPanel.setBackground(background);
         eastPanel.setBackground(background);
         midPanel.setBackground(background);
+
+        // Set foreground colors for specific components
         searchLabel.setForeground(foreground);
         textFileLabel.setForeground(foreground);
         midTitle.setForeground(foreground);
         resultsTextArea.setForeground(foreground);
         resultsTextArea.setBackground(background);
+
+        // Set background color for the dark mode toggle button
         darkModeToggle.setBackground(darkMode ? Color.LIGHT_GRAY : Color.GRAY);
     }
 

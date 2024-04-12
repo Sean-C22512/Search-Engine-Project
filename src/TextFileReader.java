@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 public class TextFileReader
 {
+    // Private fields to hold file path, text file path, searched word,
+    // result text, word counts, and number of results to display
     private String filePath;
     private String textFilePath = "";
     private String word;
@@ -16,41 +18,54 @@ public class TextFileReader
     private int numberOfResults;
 
 
+    // Constructor to initialise TextFileReader with file path, searched word
+    // and number of results to be displayed
     public TextFileReader(String filePath, String word,int numberOfResults) {
         this.filePath = filePath;
         this.word = word;
         this.numberOfResults = numberOfResults;
     }
 
+    // Method to amend file path by appending directory path.
+    // Called when user wants to search specific text file
     public void amendFilePath() {
         textFilePath += Constants.DIRECTORY_PATH + "/" + filePath ;
 
     }
 
+    // Method to get result text as a string
     public String getResultText() {
         return resultText.toString();
     }
 
     public void readAll_TextFiles() {
+
         // Creates a Path object representing the directory specified by directoryPath above
         Path directory = Paths.get(filePath);
 
+        // Check if the directory exists and is a directory
         if (Files.exists(directory) && Files.isDirectory(directory)) {
             try
             {
+                // Walk through the directory and process each text file
                 Files.walk(directory)
                         .filter(Files::isRegularFile)
                         .filter(path -> path.toString().endsWith(".txt"))
                         .forEach(path -> {
+
+                            // Process the text file and get word count
                             WordCount wordCount = processFile(path);
+
+                            // Ensure wordCount is not null
                             assert wordCount != null;
 
+                            // Add wordCount to wordCounts if count is not zero
                             if (wordCount.getCount() != 0) {
                                 wordCounts.add(wordCount);
                             }
                         });
 
-
+                // Display results with specified number of results (specified in constructor)
                 ResultsDisplay(numberOfResults);
 
 
@@ -63,19 +78,31 @@ public class TextFileReader
         }
     }
 
-    // Reads just a single text file
+    // Method to read a single text file
     public void read_TextFile() {
+
+        // Get the path of the text file
         Path file = Paths.get(textFilePath);
 
+        // Check if the file exists, is a regular file, and has a .txt extension
         if (Files.exists(file) && Files.isRegularFile(file) && file.toString().endsWith(".txt")) {
+
+            // Process the text file and get word count
             WordCount wordCount = processFile(file);
+
+            // Ensure wordCount is not null
             assert wordCount != null;
 
+            // Add the wordCount to wordCounts ArrayList if count is not zero
             if (wordCount.getCount() != 0) {
                 wordCounts.add(wordCount);
             }
+            // Display results with specified number of results (specified in constructor)
             ResultsDisplay(numberOfResults);
-        } else {
+
+        }
+
+        else {
             System.err.println("File does not exist or is not a valid text file.");
         }
     }
@@ -137,8 +164,6 @@ public class TextFileReader
                         .append(wordCount.getCount()).append("\n");
             }
         }
-
-
 
     }
 

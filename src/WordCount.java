@@ -1,3 +1,7 @@
+/*
+    Class to represent the Word Count of a specific File
+*/
+
 public class WordCount {
     private String fileName;
     private int count;
