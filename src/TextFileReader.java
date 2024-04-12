@@ -17,7 +17,6 @@ public class TextFileReader
     private ArrayList<WordCount> wordCounts = new ArrayList<>();
     private int numberOfResults;
 
-
     // Constructor to initialise TextFileReader with file path, searched word
     // and number of results to be displayed
     public TextFileReader(String filePath, String word,int numberOfResults) {
@@ -30,7 +29,6 @@ public class TextFileReader
     // Called when user wants to search specific text file
     public void amendFilePath() {
         textFilePath += Constants.DIRECTORY_PATH + "/" + filePath ;
-
     }
 
     // Method to get result text as a string
@@ -68,7 +66,6 @@ public class TextFileReader
                 // Display results with specified number of results (specified in constructor)
                 ResultsDisplay(numberOfResults);
 
-
             }
             catch (IOException e) {
                 e.printStackTrace();
@@ -101,13 +98,10 @@ public class TextFileReader
             ResultsDisplay(numberOfResults);
 
         }
-
         else {
             System.err.println("File does not exist or is not a valid text file.");
         }
     }
-
-
 
 
     private WordCount processFile(Path filePath)
@@ -151,7 +145,6 @@ public class TextFileReader
         // Display the top x (ResultsAmount) entries
         int count = Math.min(ResultsAmount, wordCounts.size());
 
-
         if (wordCounts.isEmpty()) {
             resultText.append("No results found");
         } else {
@@ -164,7 +157,6 @@ public class TextFileReader
                         .append(wordCount.getCount()).append("\n");
             }
         }
-
     }
 
 }

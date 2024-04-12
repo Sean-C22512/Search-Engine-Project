@@ -13,7 +13,6 @@ public class FilterGui implements ActionListener {
     private String selectedItem;
     private JButton ok;
 
-
     public FilterGui() {
 
         // Create a new JFrame for the FilterGui
@@ -67,6 +66,5 @@ public class FilterGui implements ActionListener {
 
         // Return default filter value if selectedItem is null or empty
         return 5;
-
     }
 }
