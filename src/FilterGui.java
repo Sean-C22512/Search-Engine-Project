@@ -15,7 +15,7 @@ public class FilterGui implements ActionListener {
 
     public FilterGui() {
         filterFrame = new JFrame("FilterGui");
-        filterFrame.setBounds(Constants.FILTER_X, Constants.FILTER_Y, Constants.FILTER_WIDTH, Constants.FRAME_HEIGHT);
+        filterFrame.setBounds(Constants.FILTER_X, Constants.FILTER_Y, Constants.FILTER_WIDTH, Constants.FILTER_HEIGHT);
         dropdown = new JComboBox<>(filter_options);
         dropdown.addActionListener(this); // Register the action listener
         filterFrame.setLayout(new FlowLayout()); // Set layout manager to FlowLayout
