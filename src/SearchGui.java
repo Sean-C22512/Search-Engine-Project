@@ -13,6 +13,9 @@ public class SearchGui implements ActionListener {
     private String searchedWord;
     private String selectedItem;
 
+    private FilterGui filterGui;
+
+
     private JComboBox<String> dropdown;
     private String[] options = new String[Constants.MAX_SIZE];
 
@@ -116,12 +119,16 @@ public class SearchGui implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case "OK":
+                if (filterGui == null) {
+                    JOptionPane.showMessageDialog(frame, "Please set filters first.");
+                    return; // Exit actionPerformed if filters are not set
+                }
                 resultsTextArea.setText("Searching...");
                 searchedWord = searchText.getText();
                 selectedItem = (String) dropdown.getSelectedItem();
 
                 new Thread(() -> {
-                    TextFileReader textFileReader = new TextFileReader(selectedItem, searchedWord);
+                    TextFileReader textFileReader = new TextFileReader(selectedItem, searchedWord,filterGui.getFilterItem());
 
                     if (Objects.equals(selectedItem, Constants.DIRECTORY_PATH)) {
                         textFileReader.readAll_TextFiles();
@@ -141,8 +148,11 @@ public class SearchGui implements ActionListener {
                 break;
 
             case "Filter":
-                FilterGui filterGui = new FilterGui();
+                if (filterGui == null) {
+                    filterGui = new FilterGui();
+                }
                 break;
+
 
             case "About":
                 JOptionPane.showMessageDialog(frame, "This program searches for words and phrases in stored text files.\n Enter the chosen word/phrase into the search bar and press OK \nto run the program");

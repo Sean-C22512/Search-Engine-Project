@@ -13,11 +13,13 @@ public class TextFileReader
     private String word;
     private StringBuilder resultText = new StringBuilder();
     private ArrayList<WordCount> wordCounts = new ArrayList<>();
+    private int numberOfResults;
 
 
-    public TextFileReader(String filePath, String word) {
+    public TextFileReader(String filePath, String word,int numberOfResults) {
         this.filePath = filePath;
         this.word = word;
+        this.numberOfResults = numberOfResults;
     }
 
     public void amendFilePath() {
@@ -48,8 +50,8 @@ public class TextFileReader
                             }
                         });
 
-                // Hard coded atm (5), will be included in the constructor eventually in this class
-                ResultsDisplay(5);
+
+                ResultsDisplay(numberOfResults);
 
 
             }
@@ -72,9 +74,7 @@ public class TextFileReader
             if (wordCount.getCount() != 0) {
                 wordCounts.add(wordCount);
             }
-
-            // Hard coded atm (5), will be included in the constructor eventually in this class
-            ResultsDisplay(5);
+            ResultsDisplay(numberOfResults);
         } else {
             System.err.println("File does not exist or is not a valid text file.");
         }

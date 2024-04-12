@@ -23,6 +23,19 @@ public class Constants {
 
     public static final int RESULT_AREA_ROW = 20;
 
+    // Filter Gui
+    public static final int FILTER_X = 50;
+    public static final int FILTER_Y = 50;
+    public static final int FILTER_WIDTH = 400;
+    public static final int FILTER_HEIGHT = 400;
+
+
+
+
+
+
+
+
 
 
 }

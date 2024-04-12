@@ -3,34 +3,50 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class FilterGui implements ActionListener
-{
-    // Check Box variables :
-    private JFrame CheckFrame;
-    private JCheckBox CheckBox_1;
-    private JCheckBox CheckBox_2;
+public class FilterGui implements ActionListener {
 
-    public FilterGui()
-    {
-        CheckFrame = new JFrame("CheckBox");
-        CheckBox_1 = new JCheckBox("5 results");
-        CheckBox_2 = new JCheckBox("10 results", true);
+    private JFrame filterFrame;
+    private JComboBox<String> dropdown;
+    private String[] filter_options = {"5", "10", "15"};
+    private JLabel filterLabel;
+    private String selectedItem;
+    private JButton ok;
 
-        CheckBox_1.setBounds(50, 50, 100, 50); // Adjusted bounds
-        CheckBox_2.setBounds(50, 100, 100, 50); // Adjusted bounds
 
-        CheckFrame.add(CheckBox_1);
-        CheckFrame.add(CheckBox_2);
-        CheckFrame.setSize(400, 400);
-        CheckFrame.setLayout(new FlowLayout()); // Set layout manager to FlowLayout
-        CheckFrame.setLayout(null);
-        CheckFrame.setVisible(true);
+    public FilterGui() {
+        filterFrame = new JFrame("FilterGui");
+        filterFrame.setBounds(Constants.FILTER_X, Constants.FILTER_Y, Constants.FILTER_WIDTH, Constants.FRAME_HEIGHT);
+        dropdown = new JComboBox<>(filter_options);
+        dropdown.addActionListener(this); // Register the action listener
+        filterFrame.setLayout(new FlowLayout()); // Set layout manager to FlowLayout
+        filterFrame.setVisible(true);
+        ok = new JButton("OK");
+
+        filterLabel = new JLabel("Number of Results Displayed :");
+        filterFrame.add(filterLabel);
+        filterFrame.add(dropdown); // Add the dropdown to the frame
+        filterFrame.add(ok);
+
+
     }
 
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        System.out.println("Test");
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == dropdown) {
+            String command = e.getActionCommand();
+            if (command.equals("comboBoxChanged")) {
+                selectedItem = (String) dropdown.getSelectedItem();
+            }
+        }
+    }
+
+    public int getFilterItem() {
+        if (selectedItem != null && !selectedItem.isEmpty()) {
+
+            return Integer.parseInt(selectedItem);
+        }
+
+        return 5;
 
     }
 }
