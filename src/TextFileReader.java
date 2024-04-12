@@ -21,7 +21,7 @@ public class TextFileReader
     }
 
     public void amendFilePath() {
-        textFilePath += Constants.DIRECTORY_PATH + "/" + filePath ; // Appending the new string to the existing filePath
+        textFilePath += Constants.DIRECTORY_PATH + "/" + filePath ;
 
     }
 

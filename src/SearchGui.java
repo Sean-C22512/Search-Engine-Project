@@ -153,11 +153,13 @@ public class SearchGui implements ActionListener {
 
             case "About":
                 // Display about message when "about" button is clicked
-                JOptionPane.showMessageDialog(frame, "This program searches for words and phrases in stored text files.\n Enter the choosen word/phrase into the search bar and press ok \nto run the program");
+                JOptionPane.showMessageDialog(frame, "This program searches for words and phrases in stored" +
+                        " text files.\n Enter the chosen word/phrase into the search bar and press ok \nto run the program");
                 break;
 
             case "Help":
-                JOptionPane.showMessageDialog(frame, "no resules found = there are no appearances of the searched word within the text files");
+                JOptionPane.showMessageDialog(frame, "no results found = there are no appearances of the" +
+                        " searched word within the text files");
                 break;
 
             case "Dark Mode": // Toggle dark mode

@@ -16,6 +16,4 @@ public class Constants {
     public static final int EAST_COL = 1;
 
 
-
-
 }
