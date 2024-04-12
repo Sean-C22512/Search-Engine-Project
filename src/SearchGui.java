@@ -1,14 +1,17 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.Objects;
 
-public class SearchGui implements ActionListener {
+/**
+ * This class provides a graphical user interface to search for text within files.
+ */
 
+public class SearchGui implements ActionListener {
+    //Swing Components
     private JFrame frame;
     private String searchedWord;
     private String selectedItem;
@@ -17,7 +20,7 @@ public class SearchGui implements ActionListener {
 
 
     private JComboBox<String> dropdown;
-    private String[] options = new String[Constants.MAX_SIZE];
+    private String[] options = new String[Constants.MAX_SIZE]; // Options for the dropdown
 
     private JPanel contentPanel;
     private JPanel upPanel;
@@ -39,9 +42,9 @@ public class SearchGui implements ActionListener {
     private JButton darkModeToggle;
 
     private boolean darkMode = false;
-
+    //Constructor initializes the GUI components and configures the frame.
     public SearchGui() {
-        populateDropdown();
+        populateDropdown();// Populates the dropdown with file choices
 
         frame = new JFrame("Search Engine");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -114,7 +117,7 @@ public class SearchGui implements ActionListener {
 
         setupShortcuts();
     }
-
+    //Handles actions performed on GUI components.
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
@@ -170,7 +173,7 @@ public class SearchGui implements ActionListener {
                 break;
         }
     }
-
+    //Toggles the UI between dark and light mode.
     private void toggleDarkMode() {
         darkMode = !darkMode;
         Color background = darkMode ? Color.DARK_GRAY : null;
