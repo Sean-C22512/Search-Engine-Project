@@ -91,14 +91,14 @@ public class SearchGui implements ActionListener {
         filter = new JButton("Filter");
         about = new JButton("About");
         darkModeToggle = new JButton("Dark Mode");
-
+        // Register action listeners for buttons
         ok.addActionListener(this);
         reset.addActionListener(this);
         help.addActionListener(this);
         filter.addActionListener(this);
         about.addActionListener(this);
         darkModeToggle.addActionListener(this);
-
+        // Set initial button colors
         setButtonColor(ok, Color.GREEN);
         setButtonColor(reset, Color.RED);
         setButtonColor(help, Color.WHITE);
@@ -115,7 +115,7 @@ public class SearchGui implements ActionListener {
 
         frame.setVisible(true);
 
-        setupShortcuts();
+        setupShortcuts();// Configure keyboard shortcuts
     }
     //Handles actions performed on GUI components.
     @Override
@@ -147,17 +147,17 @@ public class SearchGui implements ActionListener {
                 break;
 
             case "Reset":
-                resetGui();
+                resetGui();// Reset the GUI components to default state
                 break;
 
             case "Filter":
                 if (filterGui == null) {
-                    filterGui = new FilterGui();
+                    filterGui = new FilterGui();// Initialize the filter GUI if not already done
                 }
                 break;
 
 
-            case "About":
+            case "About":// Display help information
                 JOptionPane.showMessageDialog(frame, "This program searches for words and phrases in stored text files.\n Enter the chosen word/phrase into the search bar and press OK \nto run the program");
                 break;
 
@@ -166,7 +166,7 @@ public class SearchGui implements ActionListener {
                 break;
 
             case "Dark Mode":
-                toggleDarkMode();
+                toggleDarkMode(); // Toggle between dark and light themes
                 break;
 
             default:
@@ -191,29 +191,29 @@ public class SearchGui implements ActionListener {
         resultsTextArea.setBackground(background);
         darkModeToggle.setBackground(darkMode ? Color.LIGHT_GRAY : Color.GRAY);
     }
-
+    // Set the color for buttons
     private void setButtonColor(JButton button, Color color) {
         button.setBackground(color);
         button.setOpaque(true);
     }
-
+    // Populate the dropdown with file choices
     private void populateDropdown() {
         options[0] = Constants.DIRECTORY_PATH;
         for (int i = 2; i <= Constants.MAX_SIZE; i++) {
             options[i - 1] = i + ".txt";
         }
     }
-
+    // Reset GUI components to their default states
     private void resetGui() {
         searchText.setText("");
         dropdown.setSelectedItem(Constants.DIRECTORY_PATH);
         resultsTextArea.setText("No results for now");
     }
-
+    // Setup keyboard shortcuts for GUI operations
     private void setupShortcuts() {
         InputMap inputMap = contentPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = contentPanel.getActionMap();
-
+        // Enter key to trigger search
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "searchPressed");
         actionMap.put("searchPressed", new AbstractAction() {
             @Override
