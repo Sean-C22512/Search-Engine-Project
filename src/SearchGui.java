@@ -42,13 +42,13 @@ public class SearchGui implements ActionListener {
 
         frame = new JFrame("Search Engine");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
+        frame.setSize(Constants.FRAME_WIDTH, Constants.FRAME_HEIGHT);
 
         contentPanel = new JPanel(new BorderLayout());
         frame.add(contentPanel);
 
-        upPanel = new JPanel(new GridLayout(Constants.UP_ROW, Constants.UP_COL, 10, 5));
-        upPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        upPanel = new JPanel(new GridLayout(Constants.UP_ROW, Constants.UP_COL, Constants.H_GAP, Constants.V_GAP));
+        upPanel.setBorder(new EmptyBorder(Constants.EMPTY_BORDER, Constants.EMPTY_BORDER, Constants.EMPTY_BORDER, Constants.EMPTY_BORDER));
         contentPanel.add(upPanel, BorderLayout.NORTH);
 
         searchLabel = new JLabel("Search:");
@@ -62,21 +62,21 @@ public class SearchGui implements ActionListener {
         upPanel.add(dropdown);
 
         midPanel = new JPanel(new BorderLayout());
-        midPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        midPanel.setBorder(new EmptyBorder(Constants.EMPTY_BORDER, Constants.EMPTY_BORDER, Constants.EMPTY_BORDER,Constants.EMPTY_BORDER));
         contentPanel.add(midPanel, BorderLayout.CENTER);
 
         midTitle = new JLabel("Results");
-        midTitle.setFont(new Font("Arial", Font.BOLD, 18));
+        midTitle.setFont(new Font("Arial", Font.BOLD, Constants.MID_FONT_SIZE));
         midPanel.add(midTitle, BorderLayout.NORTH);
 
         resultsTextArea = new JTextArea("No results for now");
-        resultsTextArea.setRows(20);
+        resultsTextArea.setRows(Constants.RESULT_AREA_ROW);
         resultsTextArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(resultsTextArea);
         midPanel.add(scrollPane, BorderLayout.CENTER);
 
-        eastPanel = new JPanel(new GridLayout(Constants.EAST_ROW, Constants.EAST_COL, 5, 10));
-        eastPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+        eastPanel = new JPanel(new GridLayout(Constants.EAST_ROW, Constants.EAST_COL, Constants.H_GAP, Constants.V_GAP));
+        eastPanel.setBorder(new EmptyBorder(Constants.EMPTY_BORDER, Constants.EMPTY_BORDER, Constants.EMPTY_BORDER, Constants.EMPTY_BORDER));
         contentPanel.add(eastPanel, BorderLayout.EAST);
 
         ok = new JButton("OK");
