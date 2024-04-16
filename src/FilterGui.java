@@ -8,7 +8,7 @@ public class FilterGui implements ActionListener {
     // Filter Gui Swing Components
     private JFrame filterFrame;
     private JComboBox<String> dropdown;
-    private String[] filter_options = {"5", "10", "15"};
+    private String[] filter_options = {"5", "10", "15","20"};
     private JLabel filterLabel;
     private String selectedItem;
     private JButton ok;
