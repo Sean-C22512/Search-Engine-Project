@@ -1,0 +1,5 @@
+s = spam
+new_str = s + s
+print (new_str) # Line 1
+print (new_str * 2) # Line 2
+print (len(new_str)) # Line 3

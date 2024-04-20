@@ -2,12 +2,10 @@ public class Constants {
 
     // Directory Path
     public static final String DIRECTORY_PATH = "All"; // Default directory path for file operations
-    
     // Size and Dimension Constants
     public static final int MAX_SIZE = 499; // Max size for certain operations or collections
     public static final int FRAME_WIDTH = 800; // Width of the main application frame
     public static final int FRAME_HEIGHT = 600; // Height of the main application frame
-    
     // Layout Constants for GUI components
     public static final int EMPTY_BORDER = 10;
 
