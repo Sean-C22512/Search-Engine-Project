@@ -51,14 +51,5 @@
     <li>Compile the code using <code>main.java</code>.</li>
 </ol>
 
-<h3>Shortcuts</h3>
-<ul>
-    <li><strong>Enter:</strong> Trigger a search.</li>
-    <li><strong>Ctrl + D:</strong> Toggle dark mode.</li>
-    <li><strong>Ctrl + R:</strong> Reset the search fields and results.</li>
-    <li><strong>Ctrl + H:</strong> Show help dialog.</li>
-    <li><strong>Ctrl + F:</strong> Open filter settings.</li>
-</ul>
-
 </body>
 </html>
